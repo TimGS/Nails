@@ -1,0 +1,8 @@
+<?php $users = array (
+  0 => 
+  array (
+    'email' => 'you@somewhere.org',
+    'salt' => '',
+    'pass' => 'nailspass',
+  ),
+);

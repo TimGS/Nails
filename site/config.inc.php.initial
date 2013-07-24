@@ -1,0 +1,36 @@
+<?php
+define('NAILS_DIR_PAGES', 'pages');
+
+// Special cases of pages
+define('NAILS_ALIAS_HOME', 'home');
+define('NAILS_ALIAS_LOGIN', 'login');
+
+define('NAILS_NOTFOUND_FILE', '404.php');
+
+// Menu
+define('NAILS_NAV_CURRENTCLASS', 'active');
+define('NAILS_NAV_UNPUBPREFIX', '[X] ');
+
+// Template - default file
+define('NAILS_DEFAULT_TEMPLATE', 'template');
+
+// Captcha
+define('NAILS_CAPTCHA_URL', 'captcha/');
+define('NAILS_CAPTCHA_PRIVATE', '');
+define('NAILS_CAPTCHA_PUBLIC', '');
+
+// Character set
+define('NAILS_CHARSET', 'UTF-8');
+
+
+// Site
+define('NAILS_SITE_NAME', 'Framework sample site');
+define('NAILS_SITE_EMAIL', 'you@somewhere.org');
+
+// Users
+define('NAILS_USERS_SALT_LENGTH_DEFAULT', 12);
+
+// Editor
+define('NAILS_EDITOR_NIC_BUTTONLIST', '["bold","italic","underline","ul","ol","link","unlink","image"]');
+define('NAILS_EDITOR_CE_REGEX', '/(\<\s*[a-z]+\s[^>]*?contenteditable\="true"[^>]*\>)(.*?)(\<\/\s*[a-z]+\s*\>\<\!--end editable--\>)/su');
+

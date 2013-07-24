@@ -1,0 +1,30 @@
+# Gedit backup files
+*~
+
+# Content
+/pages/*
+/media/images/*
+/media/video/*
+/media/files/*
+
+# Style
+/style/*/*
+
+# Do not ignore index.html in media or style
+!/media/index.html
+!/media/*/index.html
+!/style/index.html
+!/style/*/index.html
+
+# Config and users
+/site/users.inc.php
+/site/config.inc.php
+
+# Ignore any files beginning with .
+\.*
+
+# Do not ignore .gitignore
+!.gitignore
+
+# Do not ignore .htaccess in sub directories
+!/*/.htaccess
