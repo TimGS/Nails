@@ -19,6 +19,8 @@ $nails = array(
 	'page_html' => ''
 	);
 
+if (strpos($nails['request'], '..') !== false) exit();
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_POST['page_filename']) && is_file('process/'.$nails['request'].'.php'))
 	{
 	$page = file_get_contents('process/'.$nails['request'].'.php');
