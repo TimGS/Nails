@@ -24,10 +24,7 @@ if (strpos($nails['request'], '..') !== false) exit();
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_POST['page_filename']) && is_file('process/'.$nails['request'].'.php'))
 	{
 	$page = file_get_contents('process/'.$nails['request'].'.php');
-	if ($page == iconv(NAILS_CHARSET, NAILS_CHARSET.'//IGNORE', $page)) // Only accept files with valid characters
-		{
-		require('process/'.$nails['request'].'.php');
-		}
+	require('process/'.$nails['request'].'.php');
 	}
 else
 	{
@@ -46,48 +43,45 @@ else
 	//		$pv_* variables
 	//		$template to override DEFAULT_TEMPLATE
 	$page = file_get_contents('pages/'.$nails['page_filename']);
-	if ($page == iconv(NAILS_CHARSET, NAILS_CHARSET.'//IGNORE', $page)) // Only accept files with valid characters
+	$writable = is_writable('pages/'.$nails['page_filename']);
+
+	// Update page
+	if ($writable && isset($_POST['page_filename']) && isset($_POST['content']))
 		{
-		$writable = is_writable('pages/'.$nails['page_filename']);
-
-		// Update page
-		if ($writable && isset($_POST['page_filename']) && isset($_POST['content']))
-			{
-			$page_file = file_get_contents('pages/'.$nails['page_filename']);
-			file_put_contents('pages/'.$nails['page_filename'], preg_replace(NAILS_EDITOR_CE_REGEX, "$1\n\n".$_POST['content']."\n\n$3", $page_file, 1), LOCK_EX);
-			}
-
-		// Run page
-		ob_start();
-		require('pages/'.$nails['page_filename']);
-		$nails['page_html'] = ob_get_clean();
-
-		// Editor
-		if ($writable && User::isLogged() && preg_match(NAILS_EDITOR_CE_REGEX, $nails['page_html'], $matches))
-			{
-			$nails['page_html'] .=
-				'<form action="'.($nails['request'] ? $nails['request'] : NAILS_ALIAS_HOME).'" method="post">
-					<fieldset>
-						<label for="content">Edit Content</label>
-						<textarea id="content" name="content">'.$matches[2].'</textarea>
-					<fieldset>
-						<input type="hidden" value="'.Sanitise::html($nails['page_filename']).'" name="page_filename" />
-						<input type="submit" value="Update" />
-					</fieldset>
-				</form>
-
-				<script src="http://js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
-				<script type="text/javascript">
-				bkLib.onDomLoaded(function()
-					{
-					var myNicEditor = new nicEditor({buttonList : '.NAILS_EDITOR_NIC_BUTTONLIST.'});
-					myNicEditor.panelInstance("content");
-					});
-				</script>';
-			}
-		
-		$nails['page_html'] = str_replace('contenteditable="true"', 'contenteditable="false"', $nails['page_html']);
+		$page_file = file_get_contents('pages/'.$nails['page_filename']);
+		file_put_contents('pages/'.$nails['page_filename'], preg_replace(NAILS_EDITOR_CE_REGEX, "$1\n\n".$_POST['content']."\n\n$3", $page_file, 1), LOCK_EX);
 		}
+
+	// Run page
+	ob_start();
+	require('pages/'.$nails['page_filename']);
+	$nails['page_html'] = ob_get_clean();
+
+	// Editor
+	if ($writable && User::isLogged() && preg_match(NAILS_EDITOR_CE_REGEX, $nails['page_html'], $matches))
+		{
+		$nails['page_html'] .=
+			'<form action="'.($nails['request'] ? $nails['request'] : NAILS_ALIAS_HOME).'" method="post">
+				<fieldset>
+					<label for="content">Edit Content</label>
+					<textarea id="content" name="content">'.$matches[2].'</textarea>
+				<fieldset>
+					<input type="hidden" value="'.Sanitise::html($nails['page_filename']).'" name="page_filename" />
+					<input type="submit" value="Update" />
+				</fieldset>
+			</form>
+
+			<script src="http://js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
+			<script type="text/javascript">
+			bkLib.onDomLoaded(function()
+				{
+				var myNicEditor = new nicEditor({buttonList : '.NAILS_EDITOR_NIC_BUTTONLIST.'});
+				myNicEditor.panelInstance("content");
+				});
+			</script>';
+		}
+	
+	$nails['page_html'] = str_replace('contenteditable="true"', 'contenteditable="false"', $nails['page_html']);
 
 	// Charset via HTTP. Not strictly essential if meta tag present, but belt and braces.
 	header('Content-Type:text/html; charset='.NAILS_CHARSET);
