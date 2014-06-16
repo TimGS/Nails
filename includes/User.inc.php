@@ -64,7 +64,7 @@ class User
 		if ($email = self::isLogged())
 			{
 			return
-				'<div style="position: fixed; top: 10px; left: 10px; font-size: 1.4em; padding: 1em; background: #CCC; color: black; border: solid 1px black;">Logged in as '.$email.'
+				'<div style="position: fixed; top: 10px; left: 10px; font-size: 1.4em; padding: 1em; background: #CCC; color: black; border: solid 1px black; z-index: 9999;">Logged in as '.$email.'
 					<form action="logout" method="post">
 						<fieldset>
 							<input type="submit" class="button" value="Logout" />
