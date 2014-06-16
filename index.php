@@ -11,7 +11,7 @@ function __autoload($name)
 
 // $nails array
 $nails = array(
-	'base' => /* for <base> tag */ ((empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == 'off') ? 'http://' : 'https://').$_SERVER['SERVER_NAME'].preg_replace('/\/[^\/]+$/', '/', preg_replace('/^'.preg_quote($_SERVER['DOCUMENT_ROOT'], '/').'/', '', $_SERVER['SCRIPT_FILENAME'])),
+	'base' => /* for <base> tag */ ((empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == 'off') ? 'http://' : 'https://').$_SERVER['SERVER_NAME'].preg_replace('/\/[^\/]+$/', '/', preg_replace('/^'.preg_quote(str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']), '/').'/', '', str_replace('\\', '/', $_SERVER['SCRIPT_FILENAME']))),
 	'request' => strtolower(get_magic_quotes_gpc() ? stripslashes(@$_REQUEST['q']) : @$_REQUEST['q']),
 	'page_title' => '',
 	'page_filename' => '',
