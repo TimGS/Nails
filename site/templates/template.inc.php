@@ -7,7 +7,7 @@
 
 	<base href="<?php echo $nails['base']; ?>" />
 
-	<link rel="stylesheet" type="text/css" media="screen" href="style/css/style.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="style/default/css/style.css" />
 	
 	<!--[if lt IE 9]>
 		 <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -16,7 +16,7 @@
 		 </style>
 	<![endif]-->
 
-	<script type="text/javascript" src="style/js/style.js"></script>
+	<script type="text/javascript" src="style/default/js/style.js"></script>
 
 </head>
 <body>
