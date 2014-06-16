@@ -1,0 +1,4 @@
+# Tell browser to cache media for 24hrs
+# Recommended for static media on live sites. Not recommended for development.
+ExpiresActive On
+ExpiresDefault A86400
