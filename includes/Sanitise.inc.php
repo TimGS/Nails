@@ -22,7 +22,7 @@ class Sanitise {
 		if (is_array($string))
 			{
 			$returnArray = array();
-			foreach ($string as $key=>$item) $returnArray[$key] = self::html($item, $stripslashes = true);
+			foreach ($string as $key=>$item) $returnArray[$key] = self::__html($item, $stripslashes = true, $charset);
 			return $returnArray;
 			}
 		else
@@ -42,7 +42,7 @@ class Sanitise {
 		if (is_array($string))
 			{
 			$returnArray = array();
-			foreach ($string as $key=>$item) $returnArray[$key] = self::reverse_magic_quotes($item, $stripslashes = true);
+			foreach ($string as $key=>$item) $returnArray[$key] = self::reverse_magic_quotes($item);
 			return $returnArray;
 			}
 		else
