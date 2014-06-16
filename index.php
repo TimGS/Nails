@@ -58,27 +58,34 @@ else
 	$nails['page_html'] = ob_get_clean();
 
 	// Editor
-	if ($writable && User::isLogged() && preg_match(NAILS_EDITOR_CE_REGEX, $nails['page_html'], $matches))
+	if (User::isLogged() && preg_match(NAILS_EDITOR_CE_REGEX, $nails['page_html'], $matches))
 		{
-		$nails['page_html'] .=
-			'<form action="'.($nails['request'] ? $nails['request'] : NAILS_ALIAS_HOME).'" method="post">
-				<fieldset>
-					<label for="content">Edit Content</label>
-					<textarea id="content" name="content">'.$matches[2].'</textarea>
-				<fieldset>
-					<input type="hidden" value="'.Sanitise::html($nails['page_filename']).'" name="page_filename" />
-					<input type="submit" value="Update" />
-				</fieldset>
-			</form>
+        if ($writable)
+            {
+            $nails['page_html'] .=
+                '<form action="'.($nails['request'] ? $nails['request'] : NAILS_ALIAS_HOME).'" method="post">
+                    <fieldset>
+                        <label for="content">Edit Content</label>
+                        <textarea id="content" name="content">'.$matches[2].'</textarea>
+                    <fieldset>
+                        <input type="hidden" value="'.Sanitise::html($nails['page_filename']).'" name="page_filename" />
+                        <input type="submit" value="Update" />
+                    </fieldset>
+                </form>
 
-			<script src="http://js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
-			<script type="text/javascript">
-			bkLib.onDomLoaded(function()
-				{
-				var myNicEditor = new nicEditor({buttonList : '.NAILS_EDITOR_NIC_BUTTONLIST.'});
-				myNicEditor.panelInstance("content");
-				});
-			</script>';
+                <script src="http://js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
+                <script type="text/javascript">
+                bkLib.onDomLoaded(function()
+                    {
+                    var myNicEditor = new nicEditor({buttonList : '.NAILS_EDITOR_NIC_BUTTONLIST.'});
+                    myNicEditor.panelInstance("content");
+                    });
+                </script>';
+            }
+        else
+            {
+            $nails['page_html'] .= '<p style="font-weight: bold; color: #F00">Editable field present, but file not writable.</p>';
+            }
 		}
 	
 	$nails['page_html'] = str_replace('contenteditable="true"', 'contenteditable="false"', $nails['page_html']);
