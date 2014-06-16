@@ -3,7 +3,6 @@ class User
 	{
 	static function login($email, $pass)
 		{
-		// <<<< Move to User ??	
 		require('site/users.inc.php');
 		foreach($users as $user)
 			{
