@@ -20,6 +20,9 @@
 /site/users.inc.php
 /site/config.inc.php
 
+# phpThumb
+phpThumb/phpThumb.config.php
+
 # Ignore any files beginning with .
 \.*
 
