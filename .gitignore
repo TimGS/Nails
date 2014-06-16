@@ -22,6 +22,8 @@
 
 # phpThumb
 phpThumb/phpThumb.config.php
+phpThumb/cache/?
+phpThumb/cache/phpThumbCacheStats.txt
 
 # Ignore any files beginning with .
 \.*
@@ -31,3 +33,5 @@ phpThumb/phpThumb.config.php
 
 # Do not ignore .htaccess in sub directories
 !/*/.htaccess
+# except in /media/
+/media/.htaccess
