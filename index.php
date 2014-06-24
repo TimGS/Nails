@@ -63,7 +63,7 @@ else
         if ($writable)
             {
             $nails['page_html'] .=
-                '<form action="'.($nails['request'] ? $nails['request'] : NAILS_ALIAS_HOME).'" method="post">
+                '<form class="nails-cms-editor" action="'.($nails['request'] ? $nails['request'] : NAILS_ALIAS_HOME).'" method="post">
                     <fieldset>
                         <label for="content">Edit Content</label>
                         <textarea id="content" name="content">'.$matches[2].'</textarea>
