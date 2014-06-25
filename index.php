@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_POST['page_filename']) && i
 	}
 else
 	{
-	$menu = new Menu(NAILS_DIR_PAGES);	
+	$menu = new Menu(NAILS_DIR_PAGES); // Also writes to $nails array. Messy.
 
 	// Page not found?
 	if (!$nails['page_filename'])
