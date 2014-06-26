@@ -51,5 +51,20 @@ class Sanitise {
 			}
 		}
 
+    /**
+     * Clean HTML e.g. of MS Word formatting
+     */
+    function clean_html($html)
+        {
+        // Strip comments
+        $html = preg_replace('/\<\!--(.*?)--\>/su', '', $html);
+        // Convert b to strong and i to em
+        $html = preg_replace('/(\<\/?)i(\s+|\>)/su', '$1em$2', $html);
+        $html = preg_replace('/(\<\/?)b(\s+|\>)/su', '$1strong$2', $html);
+        // Strip unwanted tags
+        $html = strip_tags($html, '<strong><em><u><p><br><a><ul><ol><li><img>');
+        // Strip style attributes
+        return preg_replace('/(\<[^>]+)\sstyle\="[^"]*"([^>]*\>)/su', '$1$2', $html);
+        }
 	}
 

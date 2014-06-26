@@ -49,7 +49,7 @@ else
 	if ($writable && isset($_POST['page_filename']) && isset($_POST['content']))
 		{
 		$page_file = file_get_contents('pages/'.$nails['page_filename']);
-		file_put_contents('pages/'.$nails['page_filename'], preg_replace(NAILS_EDITOR_CE_REGEX, "$1\n\n".Sanitise::reverse_magic_quotes($_POST['content'])."\n\n$3", $page_file, 1), LOCK_EX);
+		file_put_contents('pages/'.$nails['page_filename'], preg_replace(NAILS_EDITOR_CE_REGEX, "$1\n\n".Sanitise::clean_html(Sanitise::reverse_magic_quotes($_POST['content']))."\n\n$3", $page_file, 1), LOCK_EX);
 		}
 
 	// Run page
